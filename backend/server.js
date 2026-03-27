@@ -8,22 +8,35 @@ const auth = require("./middleware/auth");
 
 const app = express();
 
-// ✅ IMPORTANT
+// PORT
 const PORT = process.env.PORT || 5000;
+
+// ENV
 const MONGO_URL = process.env.MONGO_URL;
-app.use(cors());
+
+// 🔥 MIDDLEWARE
 app.use(express.json());
 
-// DB CONNECT
+// ✅ FIXED CORS (IMPORTANT)
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.options("*", cors()); // preflight fix
+
+// 🔥 DB CONNECT
 mongoose
   .connect(MONGO_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log("MongoDB connection error:", error.message));
 
-// ROUTES
+// 🔥 ROUTES
 app.use("/auth", authRoutes);
 app.use("/api", auth, healthRoutes);
 
+// TEST ROUTE
 app.get("/", (req, res) => {
   res.send("Backend running...");
 });
