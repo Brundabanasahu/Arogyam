@@ -8,7 +8,7 @@ function AddHealth() {
   const addData = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/api/health", {
+    const res = await fetch("https://arogyam-ge8y.onrender.com/api/health", { // ✅ CHANGED HERE
       method: "POST",
       headers: {
         "Content-Type": "application/json",
