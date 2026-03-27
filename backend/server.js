@@ -17,15 +17,8 @@ const MONGO_URL = process.env.MONGO_URL;
 // 🔥 MIDDLEWARE
 app.use(express.json());
 
-// ✅ FIXED CORS (IMPORTANT)
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-app.options("/*", cors()); // ✅ fixed
-
-app.options("*", cors()); // preflight fix
+// ✅ SIMPLE & WORKING CORS
+app.use(cors());
 
 // 🔥 DB CONNECT
 mongoose
