@@ -28,7 +28,7 @@ function getAlertMessage(heartRate, oxygen, bp) {
 }
 
 // ==============================
-// ✅ ADD HEALTH DATA (FINAL)
+// ✅ ADD HEALTH DATA
 // ==============================
 router.post("/health", authorizeRole("care_manager"), async (req, res) => {
   try {
@@ -38,15 +38,12 @@ router.post("/health", authorizeRole("care_manager"), async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    // ✅ AUTO INCREMENT PATIENT ID
     const last = await Health.find().sort({ patientId: -1 }).limit(1);
 
     const newPatientId =
       last.length > 0 && typeof last[0].patientId === "number"
         ? last[0].patientId + 1
         : 1;
-
-    console.log("NEW ID:", newPatientId);
 
     const alert = getAlertMessage(Number(heartRate), Number(oxygen), bp);
 
@@ -84,9 +81,9 @@ router.get("/health/all", async (req, res) => {
 });
 
 // ==============================
-// ✅ GET BY PATIENT ID
+// ✅ GET BY PATIENT ID (FIXED)
 // ==============================
-router.get("/patient/:id", async (req, res) => {
+router.get("/health/:id", async (req, res) => {   // ✅ CHANGED HERE
   try {
     const data = await Health.find({
       patientId: Number(req.params.id)
