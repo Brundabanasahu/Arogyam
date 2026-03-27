@@ -13,7 +13,7 @@ function History({ user }) {
       return;
     }
 
-    const res = await fetch(`http://localhost:5000/api/patient/${patientId}`, {
+    const res = await fetch(`https://arogyam-ge8y.onrender.com/api/health/${patientId}`, { // ✅ CHANGED
       headers: {
         Authorization: `Bearer ${user.token}`
       }
