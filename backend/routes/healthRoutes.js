@@ -4,7 +4,7 @@ const router = express.Router();
 const Health = require("../models/Health");
 const authorizeRole = require("../middleware/authorizeRole");
 
-// 🔹 Alert Logic
+// 🔹 Alert
 function getAlertMessage(heartRate, oxygen, bp) {
   const alertMessages = [];
 
@@ -27,9 +27,8 @@ function getAlertMessage(heartRate, oxygen, bp) {
   return alertMessages.join(" | ");
 }
 
-// ==============================
-// ✅ ADD HEALTH DATA
-// ==============================
+//Health Data
+
 router.post("/health", authorizeRole("care_manager"), async (req, res) => {
   try {
     const { heartRate, oxygen, bp } = req.body;
@@ -68,9 +67,8 @@ router.post("/health", authorizeRole("care_manager"), async (req, res) => {
   }
 });
 
-// ==============================
-// ✅ GET ALL DATA
-// ==============================
+//get all the data
+
 router.get("/health/all", async (req, res) => {
   try {
     const data = await Health.find().sort({ createdAt: -1 });
@@ -80,9 +78,8 @@ router.get("/health/all", async (req, res) => {
   }
 });
 
-// ==============================
-// ✅ GET BY PATIENT ID (FIXED)
-// ==============================
+//get by pateint
+
 router.get("/health/:id", async (req, res) => {   // ✅ CHANGED HERE
   try {
     const data = await Health.find({
@@ -94,9 +91,7 @@ router.get("/health/:id", async (req, res) => {   // ✅ CHANGED HERE
   }
 });
 
-// ==============================
-// ✅ ALERTS
-// ==============================
+//alerts
 router.get("/alerts", async (req, res) => {
   try {
     const alerts = await Health.find({ alert: { $ne: "" } });

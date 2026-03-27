@@ -23,7 +23,7 @@ function App() {
         {page === "register" && (
           <Register
             goToLogin={() => setPage("login")}
-            goToHome={() => setPage("home")}   // ✅ ADD THIS
+            goToHome={() => setPage("home")}   
           />
         )}
 

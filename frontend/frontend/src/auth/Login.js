@@ -23,7 +23,7 @@ function Login({ setUser, goToHome, goToRegister }) {
         return;
       }
 
-      // ✅ Save token
+      // save token
       localStorage.setItem("token", data.token);
 
       setMessage("Login successful ✅");
