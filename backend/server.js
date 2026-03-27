@@ -18,7 +18,9 @@ const MONGO_URL = process.env.MONGO_URL;
 app.use(express.json());
 
 // ✅ SIMPLE & WORKING CORS
-app.use(cors());
+app.use(cors({
+  origin: "*"
+}));
 
 // 🔥 DB CONNECT
 mongoose
